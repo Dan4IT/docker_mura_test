@@ -1,5 +1,10 @@
 # Mura Docker Project
 
+Adapted from:
+
+[gregmoser/mura-docker-project](https://github.com/gregmoser/mura-docker-project)
+[blueriver/docker-muracms](https://github.com/blueriver/docker-muracms)
+
 ## Taking Data Snapshots
 
 #### Copy current local DB into the .git repo
