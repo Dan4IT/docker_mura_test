@@ -1,0 +1,50 @@
+version: '3.3'
+
+services:
+
+  mura:
+    image: blueriver/mura:latest
+    depends_on:
+      - svc_muradb
+    environment:
+      MURA_ADMIN_USERNAME: ${MURA_ADMIN_USERNAME}
+      MURA_ADMIN_PASSWORD: ${MURA_ADMIN_PASSWORD}
+      MURA_ADMINEMAIL: ${MURA_ADMINEMAIL}
+      MURA_APPRELOADKEY: appreload
+      MURA_DATASOURCE: dsn_mura
+      MURA_DATABASE: muradb
+      MURA_DBTYPE: mysql
+      MURA_DBUSERNAME: root
+      MURA_DBPASSWORD: ${MURA_ADMIN_PASSWORD} 
+      MURA_DBHOST: svc_muradb
+      MURA_DBPORT: 3306
+      MURA_SITEIDINURLS: "false"
+      MURA_INDEXFILEINURLS: "true"
+      MURA_TESTBOX: "true"
+      MURA_USESSL: "false"
+    volumes:
+      - ./www/modules:/var/www/modules
+      - ./www/plugins:/var/www/plugins
+      - ./www/sites:/var/www/sites
+      - ./www/themes:/var/www/themes
+    ports:
+      - "${EXPOSE_PORT}:8888"
+
+  # DB
+  svc_muradb:
+    build: ./services/mysql
+    #image: mysql:5.7.19
+    environment:
+      MYSQL_DATABASE: muradb
+      MYSQL_ROOT_PASSWORD: ${MURA_ADMIN_PASSWORD}
+    #volumes:
+    #  - vol_muradb:/var/lib/mysql
+    volumes:
+     - ./services/mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    # Dont expose MySQL ports
+    #ports:
+    #  - "5555:3306"
+
+# Mounts
+# volumes:
+#  vol_muradb:
