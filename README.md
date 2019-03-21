@@ -12,7 +12,7 @@ Adapted from:
 You can create a snapshot of your local database by running the following command
 
 ```
-docker-compose exec svc_muradb sh -c 'mysqldump --user=root --password=Pa55w0rd --databases muradb' > ./services/mysql/docker-entrypoint-initdb.d/muradb.sql
+docker-compose exec svc_muradb sh -c 'mysqldump --add-drop-database --add-drop-table --skip-comments --disable-keys  --user=root --password=Pa55w0rd --databases muradb' > ./vol_muradb/muradb.sql
 ```
 
 #### Loading Data Snapshot

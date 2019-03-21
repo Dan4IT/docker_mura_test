@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.5'
 
 services:
 
@@ -33,18 +33,14 @@ services:
   # DB
   svc_muradb:
     build: ./services/mysql
-    #image: mysql:5.7.19
     environment:
       MYSQL_DATABASE: muradb
       MYSQL_ROOT_PASSWORD: ${MURA_ADMIN_PASSWORD}
-    #volumes:
-    #  - vol_muradb:/var/lib/mysql
+      MYSQL_USER: username
+      MYSQL_PASSWORD: password
     volumes:
-     - ./services/mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
-    # Dont expose MySQL ports
-    #ports:
-    #  - "5555:3306"
+      - vol_muradb:/var/lib/mysql
+      - ./vol_muradb:/docker-entrypoint-initdb.d:cached
 
-# Mounts
-# volumes:
-#  vol_muradb:
+volumes:
+  vol_muradb:
