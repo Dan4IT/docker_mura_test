@@ -17,4 +17,4 @@ docker-compose exec svc_muradb sh -c 'mysqldump --add-drop-database --add-drop-t
 
 #### Loading Data Snapshot
 
-By default anything in the `./services/mysql/docker-entrypoint-initdb.d/` directory will be run when the mysql container is started with `docker-compose up`.
+By default anything in the `./vol_muradb/` directory will be run when the mysql container is started with `docker-compose up`.
